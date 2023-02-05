@@ -1,4 +1,5 @@
 import React from 'react';
+// import UpdateModal from '../Dashboad/UpdateModal';
 
 const Home = () => {
     return (
@@ -9,8 +10,9 @@ const Home = () => {
 
                     <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">100 users</span>
                 </div>
+                {/* <UpdateModal/> */}
 
-                <div class="flex flex-col mt-6">
+                <div class="flex flex-col mt-6 mx-4">
                     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                             <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
