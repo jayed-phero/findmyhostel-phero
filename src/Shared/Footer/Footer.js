@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
     return (
         <div>
-            <footer class="bg-white dark:bg-gray-900">
+            <footer class="bg-white dark:bg-gray-900 shadow-xl">
                 <div class="max-w-7xl px-6 py-8 mx-auto">
                     <div class="flex flex-col items-center text-center">
                         <a href="#">
