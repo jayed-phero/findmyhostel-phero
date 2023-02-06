@@ -1,11 +1,104 @@
 import React, { useState } from 'react';
 
-const UpdateModal = () => {
+const UpdateModal = ({ }) => {
 
     const [isOpen, setOpen] = useState(false)
+    const [attendence, setAttendence] = useState(false)
+    const [mess, setMess] = useState(false)
     return (
         <div>
-            <div x-data="{ isOpen: true }" class="relative flex justify-center">
+            <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true" role="dialog">
+                <div class="modal-dialog modal-dialog-centered relative w-auto pointer-events-none">
+                    <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                        <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+                            <h5 class="text-xl font-medium leading-normal text-gray-800" id="exampleModalScrollableLabel">
+                                Update Info
+                            </h5>
+                            <button type="button"
+                                class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                                data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body relative p-4">
+                            <form>
+                                <div>
+                                    <div className='flex items-center gap-3 flex-col md:flex-row'>
+                                        <div className='mb-2'>
+                                            <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">Email Address</label>
+
+                                            <input type="email" placeholder="john@example.com" class="mt-2 block w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
+                                        </div>
+                                        <div className='mb-2'>
+                                            <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">Name</label>
+
+                                            <input type="name" placeholder="username" class="mt-2 block w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <div className='flex items-center justify-between my-3'>
+                                            <label for="email" class="block text-sm font-semibold text-gray-500 dark:text-gray-300">Date</label>
+                                                <div className='flex items-center gap-5 mr-5'>
+                                                    <label for="email" class="block text-sm font-semibold text-gray-500 dark:text-gray-300">Attendence</label>
+                                                    <label for="email" class="block text-sm font-semibold text-gray-500 dark:text-gray-300">Mess</label>
+                                                </div>
+                                            </div>
+                                            <div className='flex items-center justify-between'>
+                                                <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">11/02/23</label>
+                                                <div className='flex itmes-center gap-5'>
+                                                    <div>
+                                                        <div onClick={() => setAttendence(!attendence)} class={`inline-flex items-center px-3 py-1 rounded-full gap-x-2  dark:bg-gray-800  cursor-pointer ${attendence ? 'bg-emerald-100/60' : 'bg-pink-100/60'}`}>
+                                                            <span class={`h-1.5 w-1.5 rounded-full ${attendence ? 'bg-emerald-500' : 'bg-pink-100/60'}`}></span>
+
+                                                            <h2 class={`text-sm font-normal ${attendence ? 'text-emerald-500':  'text-pink-500 bg-pink-100/60'}`}>{attendence ? 'Present' : "Absence"}</h2>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <button onClick={() => setMess(!mess)} class="px-5 py-1 text-sm text-indigo-500 rounded-full dark:bg-gray-800 bg-indigo-100/60">{mess ? "Yes" : "No"}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div
+                            class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+                            <button type="button"
+                                class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                                data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button"
+                                class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    );
+};
+
+export default UpdateModal;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <div x-data="{ isOpen: true }" class="relative flex justify-center">
                 <button onClick={() => setOpen(!isOpen)} class="px-6 py-2 mx-auto tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
                     Open Modal
                 </button>
@@ -71,9 +164,4 @@ const UpdateModal = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    );
-};
-
-export default UpdateModal;
+            </div> */}
