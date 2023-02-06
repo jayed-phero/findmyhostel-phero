@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../../assets/logo.png';
 
 const Footer = () => {
     return (
@@ -6,9 +7,10 @@ const Footer = () => {
             <footer class="bg-white dark:bg-gray-900 shadow-xl">
                 <div class="max-w-7xl px-6 py-8 mx-auto">
                     <div class="flex flex-col items-center text-center">
-                        <a href="#">
-                            <img class="w-auto h-7" src="https://merakiui.com/images/full-logo.svg" alt="" />
-                        </a>
+                        <div className='flex items-center gap-2'>
+                            <img className="w-auto h-6 sm:h-7" src={logo} alt="" />
+                            <h3 className='font-semibold text-xl text-gray-600'>Tenants Hero</h3>
+                        </div>
 
                         <p class="max-w-md mx-auto mt-4 text-gray-500 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 

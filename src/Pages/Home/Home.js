@@ -1,14 +1,14 @@
-import React from 'react';
-// import UpdateModal from '../Dashboad/UpdateModal';
+import React, { useState } from 'react';
 
 const Home = () => {
+    const [date, setDate] = useState(false)
     return (
         <div className='bg-gray-100 min-h-screen'>
             <section class="max-w-7xl py-5 px-4 mx-auto">
                 <div class="flex items-center gap-x-3">
-                    <h2 class="text-lg font-medium text-gray-800 dark:text-white">Team members</h2>
+                    <h2 class="text-lg font-medium text-gray-800 dark:text-white">Tenants numbers</h2>
 
-                    <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">100 users</span>
+                    <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">030 tenants</span>
                 </div>
                 {/* <UpdateModal/> */}
 
@@ -79,8 +79,33 @@ const Home = () => {
                                                     <h2 class="text-sm font-normal text-emerald-500">Active</h2>
                                                 </div>
                                             </td>
-                                            <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Design Director</td>
-                                            <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">authurmelo@example.com</td>
+                                            <td class="px-1 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap ">
+                                                <form className='flex items-center'>
+                                                    <div className='mx-3'>
+                                                        <td class="px-2 py-1 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                            <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" onClick={() => setDate(!date)} />
+                                                        </td>
+                                                        <td class="px-2 py-1 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                            <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" onClick={() => setDate(!date)} />
+                                                        </td>
+                                                        <td class="px-2 py-1 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                            <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" onClick={() => setDate(!date)} />
+                                                        </td>
+                                                    </div>
+                                                    <div className='mx-3'>
+                                                        <td class="px-2 py-1 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                            <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" onClick={() => setDate(!date)} />
+                                                        </td>
+                                                        <td class="px-2 py-1 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                            <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" onClick={() => setDate(!date)} />
+                                                        </td>
+                                                        <td class="px-2 py-1 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                            <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" onClick={() => setDate(!date)} />
+                                                        </td>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                            <td class="px-1 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">authurmelo@example.com</td>
                                             <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                 <div class="flex items-center gap-x-2">
                                                     <p class="px-3 py-1 text-xs text-indigo-500 rounded-full dark:bg-gray-800 bg-indigo-100/60">Design</p>
