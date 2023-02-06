@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [isOpen, setOpen] = useState(false)
+
+    const [nav, setNav] = useState(false)
+
+    useEffect(() => {
+        function activateNav() {
+            let scrollPosition = window.pageYOffset
+            if (scrollPosition > 200) {
+                setNav(true)
+            }
+            else if (scrollPosition < 10) {
+                setNav(false)
+            }
+        }
+        window.addEventListener("scroll", activateNav)
+    }, [])
     return (
-        <div>
-            <nav x-data="{ isOpen: false }" className="relative bg-white shadow dark:bg-gray-800">
+        <div className={` ${nav && ' fixed top-0 w-full ease-in duration-300'}`}>
+            <nav className={`relative bg-white shadow dark:bg-gray-800 w-full transition`}>
                 <div className="max-w-7xl px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
                     <div className="flex items-center justify-between">
                         <a href="#">

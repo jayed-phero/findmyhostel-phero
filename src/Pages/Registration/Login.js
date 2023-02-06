@@ -10,12 +10,15 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
 
+    const fmhToken = "1234567890"
+
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setLoading(true)
         if (email === "hanzalsalim@gmail.com" && password === "1234567") {
+            localStorage.setItem("fmhToken", fmhToken)
             navigate('/dashboard')
             toast.success("Welcome back Hanzal")
             setLoading(false)

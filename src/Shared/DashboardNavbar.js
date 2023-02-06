@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const DashboardNavbar = () => {
     const [isOpen, setOpen] = useState(false)
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        localStorage.removeItem("fmhToken")
+        navigate('/')
+    }
     return (
         <div>
             <nav className="relative bg-white shadow dark:bg-gray-800 fixed top-0">
@@ -35,8 +41,11 @@ const DashboardNavbar = () => {
                             <Link onClick={() => setOpen(!isOpen)} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" to='/'>Home</Link>
                             <Link onClick={() => setOpen(!isOpen)} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" to='/dashboard'>Dashboard</Link>
                             <a onClick={() => setOpen(!isOpen)} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="#">Tenants</a>
-                            <a onClick={() => setOpen(!isOpen)} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="#">Queries</a>
                             <Link onClick={() => setOpen(!isOpen)} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" to=''>Add Member</Link>
+                            {/* <a onClick={() => setOpen(!isOpen)} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="#">Queries</a> */}
+                            <a onClick={handleLogout} class="block px-5 py-2 text-sm text-center text-gray-700 capitalize transition-colors duration-300 transform border rounded-md dark:hover:bg-gray-700 dark:text-white lg:mt-0 hover:bg-gray-100 lg:w-auto" href="#">
+                                Logout
+                            </a>
                         </div>
 
                         <div class="flex justify-center mt-6 lg:flex lg:mt-0 lg:-mx-2">
