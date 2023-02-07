@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DashboardRow = ({ data }) => {
-    const { _id, name, email, picture, isActive, dayOne, dayTwo, dayThree, dayFour, dayFive, daySix, daySeven } = data
+    const { _id, name, email, picture, isActive, dayOne, dayTwo, dayThree, dayFour, dayFive, daySix, daySeven, checkin, checkout } = data
     // console.log(dayOne?.oneAtten)
     return (
         <tr>
@@ -12,7 +12,7 @@ const DashboardRow = ({ data }) => {
                     <span>#{_id.slice(20, 24)}</span>
                 </div>
             </td>
-            <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Jan 6, 2022</td>
+            <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{checkin}</td>
             <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
 
                 {

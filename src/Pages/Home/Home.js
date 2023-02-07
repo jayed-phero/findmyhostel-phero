@@ -1,17 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import UpdateModal from '../Dashboad/UpdateModal';
 import HomeDataRow from './HomeDataRow';
 
 const Home = () => {
     const [infodata, setInfoData] = useState(null)
 
-    const { data: teneantsData = [], isLoading } = useQuery({
+    const { data: teneantsData = [], isLoading , refetch} = useQuery({
         queryKey: ['ucevents'],
         queryFn: () => fetch(`${process.env.REACT_APP_API_URL}/teneants`)
             .then(res => res.json())
 
     })
+
 
     console.log(teneantsData)
     return (
@@ -26,7 +28,7 @@ const Home = () => {
 
                 <div class="flex flex-col mt-6 mx-4 md:mx-0">
                     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div class="inline-block min-w-full py-2 align-middle ">
                             <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
                                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                     <thead class="bg-gray-50 dark:bg-gray-800">
@@ -82,7 +84,7 @@ const Home = () => {
                                                             <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" />
 
                                                             <div class="flex items-center gap-x-2">
-                                                                <img class="object-cover w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt="" />
+                                                                <img class="object-cover w-10 h-10 rounded-full" src={data.picture} alt="" />
                                                                 <div>
                                                                     <h2 class="font-medium text-gray-800 dark:text-white ">{data.name}</h2>
                                                                     <p class="text-sm font-normal text-gray-600 dark:text-gray-400">@{data.name}</p>
@@ -175,8 +177,8 @@ const Home = () => {
                                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                         <div class="flex items-center gap-x-2">
                                                             {/* <p class="px-3 py-1 text-xs text-indigo-500 rounded-full dark:bg-gray-800 bg-indigo-100/60">Design</p> */}
-                                                            <p class="px-3 py-1 text-xs text-blue-500 rounded-full dark:bg-gray-800 bg-blue-100/60">Check In</p>
-                                                            <p class="px-3 py-1 text-xs text-pink-500 rounded-full dark:bg-gray-800 bg-pink-100/60">Check Out</p>
+                                                            <p class="px-3 py-1 text-xs text-blue-500 rounded-full dark:bg-gray-800 bg-blue-100/60">{data.checkin}</p>
+                                                            <p class="px-3 py-1 text-xs text-pink-500 rounded-full dark:bg-gray-800 bg-pink-100/60">{data.checkout}</p>
                                                         </div>
                                                     </td>
                                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
@@ -240,10 +242,11 @@ const Home = () => {
             </section>
             {
                 infodata &&
-                
+
                 <UpdateModal
                     infodata={infodata}
                     setInfoData={setInfoData}
+                    refetch={refetch}
                 />
             }
         </div>
