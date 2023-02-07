@@ -78,14 +78,12 @@ const UpdateModal = ({ infodata, setInfoData, refetch }) => {
                 }
                 else {
                     toast.error("Check your network connection")
-                    setInfoData(null)
                 }
             })
             .catch(err => {
                 console.log(err)
                 toast.error("Check your network connection")
                 setLoading(false)
-                setInfoData(null)
             })
 
         console.log(updatedata)

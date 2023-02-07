@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
+import UpdateModal from '../Home/UpdateModal';
 import AddTenantsModal from './AddTenants/AddTenantsModal';
-import DashboardRow from './DashboardRow';
 import './style.css';
 
 const DashboardHome = () => {
+    const [infodata, setInfoData] = useState(null)
 
     const { data: tenantsData = [], isLoading, refetch } = useQuery({
         queryKey: ['ucevents'],
@@ -19,7 +20,7 @@ const DashboardHome = () => {
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <div>
                         <div className="flex items-center gap-x-3">
-                            <h2 className="text-lg font-medium text-gray-800 dark:text-white">Customers</h2>
+                            <h2 className="text-lg font-medium text-gray-800 dark:text-white">Tenants</h2>
 
                             <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">00{tenantsData?.length} vendors</span>
                         </div>
@@ -163,7 +164,130 @@ const DashboardHome = () => {
                                     <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                                         {
                                             tenantsData.map(data =>
-                                                <DashboardRow key={data._id} data={data} />
+                                                <tr>
+                                                    <td class="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                                                        <div class="inline-flex items-center gap-x-3">
+
+                                                            <span>#{data?._id.slice(20, 24)}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{data?.checkin ? data?.checkin.slice(5, 10) : "00-00"}</td>
+                                                    <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+
+                                                        {
+                                                            data?.isActive ?
+                                                                <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60 dark:bg-gray-800">
+                                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    </svg>
+
+                                                                    <h2 class="text-sm font-normal">Active</h2>
+                                                                </div>
+                                                                :
+                                                                <div class="inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60 dark:bg-gray-800">
+                                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    </svg>
+
+                                                                    <h2 class="text-sm font-normal">Cancelled</h2>
+                                                                </div>
+                                                        }
+                                                    </td>
+                                                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                                                        <div class="flex items-center gap-x-2">
+                                                            <img class="object-cover w-8 h-8 rounded-full" src={data?.picture} alt="" />
+                                                            <div>
+                                                                <h2 class="text-sm font-medium text-gray-800 dark:text-white ">{data?.name}</h2>
+                                                                <p class="text-xs font-normal text-gray-600 dark:text-gray-400">{data?.email}</p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                                                        <div className='flex items-center gap-5'>
+                                                            <span>
+                                                                <div className=''>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayOne?.oneAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.dayOne?.oneAtten?.slice(0, 3)}
+                                                                    </td>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayOne?.oneMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.dayOne?.oneMess}
+                                                                    </td>
+                                                                </div>
+                                                            </span>
+                                                            <span>
+                                                                <div className=''>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayTwo?.twoAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.dayTwo?.twoAtten?.slice(0, 3)}
+                                                                    </td>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayTwo?.twoMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.dayTwo?.twoMess}
+                                                                    </td>
+                                                                </div>
+                                                            </span>
+                                                            <span>
+                                                                <div className=''>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayThree?.threeAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.dayThree?.threeAtten?.slice(0, 3)}
+                                                                    </td>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayThree?.threeMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.dayThree?.threeMess}
+                                                                    </td>
+                                                                </div>
+                                                            </span>
+                                                            <span>
+                                                                <div className=''>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayFour?.fourAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.dayFour?.fourAtten?.slice(0, 3)}
+                                                                    </td>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayFour?.fourMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.dayFour?.fourMess}
+                                                                    </td>
+                                                                </div>
+                                                            </span>
+                                                            <span>
+                                                                <div className=''>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayFive?.fiveAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.dayFive?.fiveAtten?.slice(0, 3)}
+                                                                    </td>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayFive?.fiveMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.dayFive?.fiveMess}
+                                                                    </td>
+                                                                </div>
+                                                            </span>
+                                                            <span>
+                                                                <div className=''>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.daySix?.sixAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.daySix?.sixAtten?.slice(0, 3)}
+                                                                    </td>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.daySix?.sixMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.daySix?.sixMess}
+                                                                    </td>
+                                                                </div>
+                                                            </span>
+                                                            <span>
+                                                                <div className=''>
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.daySeven?.sevenAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.daySeven?.sevenAtten?.slice(0, 3)}
+                                                                    </td>
+                                                                    <td class={`px-2 py-1 text-xs dark:text-gray-300 whitespace-nowrap border rounded ${data?.daySeven?.sevenMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
+                                                                        {data?.daySeven?.sevenMess}
+                                                                    </td>
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                                        <div class="flex items-center gap-x-6">
+                                                            <button onClick={() => setInfoData(data)} class="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
+                                                                data-bs-toggle="modal" data-bs-target="#exampleModalCenter"
+                                                            >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             )
                                         }
                                     </tbody>
@@ -200,7 +324,15 @@ const DashboardHome = () => {
                         </a>
                     </div>
                 </div>
-                <AddTenantsModal refetch={refetch}/>
+                <AddTenantsModal refetch={refetch} />
+                {
+                    infodata &&
+                    <UpdateModal
+                        infodata={infodata}
+                        setInfoData={setInfoData}
+                        refetch={refetch}
+                    />
+                }
             </section>
         </div>
     );
