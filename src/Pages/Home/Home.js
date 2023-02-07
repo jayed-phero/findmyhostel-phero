@@ -1,8 +1,18 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import UpdateModal from '../Dashboad/UpdateModal';
 
 const Home = () => {
     const [date, setDate] = useState(false)
+
+    const { data: teneantsData = [], isLoading } = useQuery({
+        queryKey: ['ucevents'],
+        queryFn: () => fetch(`${process.env.REACT_APP_API_URL}/teneants`)
+            .then(res => res.json())
+
+    })
+
+    console.log(teneantsData)
     return (
         <div className='bg-gray-100 min-h-screen'>
             <section class="max-w-7xl py-5 px-4 mx-auto">
