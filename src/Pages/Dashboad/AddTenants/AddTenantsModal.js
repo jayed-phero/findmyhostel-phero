@@ -74,8 +74,8 @@ const AddTenantsModal = ({refetch}) => {
                     .then(res => {
                         console.log(res.data)
                         if (res?.data?.acknowledged === true) {
-                            toast.success("Info posted Successfully")
                             setLoading(false)
+                            toast.success("Info posted Successfully")
                             refetch()
                         }
                         else {
@@ -84,8 +84,8 @@ const AddTenantsModal = ({refetch}) => {
                     })
                     .catch(err => {
                         console.log(err)
-                        toast.error("Check your network connection")
                         setLoading(false)
+                        toast.error("Check your network connection")
                     })
             })
             .catch(error => {
