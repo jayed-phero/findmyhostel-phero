@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-const UpdateModal = ({ }) => {
+const UpdateModal = ({ infodata, setInfoData}) => {
 
     const [isOpen, setOpen] = useState(false)
     const [attendence, setAttendence] = useState(false)
@@ -58,6 +58,7 @@ const UpdateModal = ({ }) => {
                                             <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">Name</label>
 
                                             <input type="name" placeholder="username" class="mt-2 block w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+                                            defaultValue={infodata?.name}
                                                 {...register("name")}
                                             />
                                         </div>
@@ -65,6 +66,7 @@ const UpdateModal = ({ }) => {
                                             <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">Email Address</label>
 
                                             <input type="email" placeholder="john@example.com" class="mt-2 block w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+                                            defaultValue={infodata?.email}
                                                 {...register("email")}
                                             />
                                         </div>
@@ -137,7 +139,7 @@ const UpdateModal = ({ }) => {
                             </div>
                             <div
                                 class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-                                <button type="button"
+                                <button onClick={() => setInfoData(null)} type="button"
                                     class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
                                     data-bs-dismiss="modal">
                                     Close
