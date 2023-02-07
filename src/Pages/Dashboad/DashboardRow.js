@@ -2,17 +2,16 @@ import React from 'react';
 
 const DashboardRow = ({ data }) => {
     const { _id, name, email, picture, isActive, dayOne, dayTwo, dayThree, dayFour, dayFive, daySix, daySeven, checkin, checkout } = data
-    // console.log(dayOne?.oneAtten)
+
     return (
         <tr>
             <td class="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                 <div class="inline-flex items-center gap-x-3">
-                    {/* <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" /> */}
 
                     <span>#{_id.slice(20, 24)}</span>
                 </div>
             </td>
-            <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{checkin}</td>
+            <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{checkin? checkin.slice(5, 10) : "00-00"}</td>
             <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
 
                 {
@@ -47,70 +46,70 @@ const DashboardRow = ({ data }) => {
                 <div className='flex items-center gap-5'>
                     <span>
                         <div className=''>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${dayOne?.oneAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                 {dayOne?.oneAtten?.slice(0, 3)}
                             </td>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${dayOne?.oneMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                 {dayOne?.oneMess}
                             </td>
                         </div>
                     </span>
                     <span>
                         <div className=''>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${dayTwo?.twoAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                 {dayTwo?.twoAtten?.slice(0, 3)}
                             </td>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${dayTwo?.twoMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                 {dayTwo?.twoMess}
                             </td>
                         </div>
                     </span>
                     <span>
                         <div className=''>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${dayThree?.threeAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                 {dayThree?.threeAtten?.slice(0, 3)}
                             </td>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${dayThree?.threeMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                 {dayThree?.threeMess}
                             </td>
                         </div>
                     </span>
                     <span>
                         <div className=''>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${dayFour?.fourAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                 {dayFour?.fourAtten?.slice(0, 3)}
                             </td>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${dayFour?.fourMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                 {dayFour?.fourMess}
                             </td>
                         </div>
                     </span>
                     <span>
                         <div className=''>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${dayFive?.fiveAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                 {dayFive?.fiveAtten?.slice(0, 3)}
                             </td>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${dayFive?.fiveMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                 {dayFive?.fiveMess}
                             </td>
                         </div>
                     </span>
                     <span>
                         <div className=''>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${daySix?.sixAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                 {daySix?.sixAtten?.slice(0, 3)}
                             </td>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${daySix?.sixMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                 {daySix?.sixMess}
                             </td>
                         </div>
                     </span>
                     <span>
                         <div className=''>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${daySeven?.sevenAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                 {daySeven?.sevenAtten?.slice(0, 3)}
                             </td>
-                            <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                            <td class={`px-2 py-1 text-xs dark:text-gray-300 whitespace-nowrap border rounded ${daySeven?.sevenMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                 {daySeven?.sevenMess}
                             </td>
                         </div>

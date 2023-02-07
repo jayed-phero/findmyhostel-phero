@@ -1,14 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import AddTenantsModal from './AddTenants/AddTenantsModal';
 import DashboardRow from './DashboardRow';
+import './style.css';
 
 const DashboardHome = () => {
 
-    const { data: tenantsData = [], isLoading } = useQuery({
+    const { data: tenantsData = [], isLoading, refetch } = useQuery({
         queryKey: ['ucevents'],
         queryFn: () => fetch(`${process.env.REACT_APP_API_URL}/teneants`)
             .then(res => res.json())
-
     })
 
     console.log(tenantsData)
@@ -20,7 +21,7 @@ const DashboardHome = () => {
                         <div className="flex items-center gap-x-3">
                             <h2 className="text-lg font-medium text-gray-800 dark:text-white">Customers</h2>
 
-                            <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">240 vendors</span>
+                            <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">00{tenantsData?.length} vendors</span>
                         </div>
 
                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">These companies have purchased in the last 12 months.</p>
@@ -42,7 +43,10 @@ const DashboardHome = () => {
                             <span>Import</span>
                         </button>
 
-                        <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600">
+                        <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModalCenter1"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -78,7 +82,7 @@ const DashboardHome = () => {
                     </div>
                 </div>
 
-                <div class="flex flex-col mt-6">
+                <div class="flex flex-col mt-6 mx-4">
                     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                             <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
@@ -87,7 +91,6 @@ const DashboardHome = () => {
                                         <tr>
                                             <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                                 <div class="flex items-center gap-x-3">
-                                                    {/* <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" /> */}
                                                     <button class="flex items-center gap-x-2">
                                                         <span>Invoice</span>
 
@@ -113,14 +116,42 @@ const DashboardHome = () => {
                                             </th>
 
                                             <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                                <div className='flex items-center gap-5'>
-                                                    <span>09/02/23</span>
-                                                    <span>10/02/23</span>
-                                                    <span>11/02/23</span>
-                                                    <span>12/02/23</span>
-                                                    <span>13/02/23</span>
-                                                    <span>14/02/23</span>
-                                                    <span>15/02/23</span>
+                                                <div className='flex items-center gap-6'>
+                                                    <span>
+                                                        <h3>09/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
+                                                    <span>
+                                                        <h3>10/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
+                                                    <span>
+                                                        <h3>11/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
+                                                    <span>
+                                                        <h3>12/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
+                                                    <span>
+                                                        <h3>13/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
+                                                    <span>
+                                                        <h3>14/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
+                                                    <span>
+                                                        <h3>15/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
                                                 </div>
                                             </th>
 
@@ -169,6 +200,7 @@ const DashboardHome = () => {
                         </a>
                     </div>
                 </div>
+                <AddTenantsModal refetch={refetch}/>
             </section>
         </div>
     );

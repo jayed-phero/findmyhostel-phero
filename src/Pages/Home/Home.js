@@ -1,9 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { toast } from 'react-hot-toast';
-import UpdateModal from '../Dashboad/UpdateModal';
-import HomeDataRow from './HomeDataRow';
-
+import UpdateModal from './UpdateModal';
 const Home = () => {
     const [infodata, setInfoData] = useState(null)
 
@@ -14,7 +11,6 @@ const Home = () => {
 
     })
 
-
     console.log(teneantsData)
     return (
         <div className='bg-gray-100 min-h-screen'>
@@ -22,7 +18,7 @@ const Home = () => {
                 <div class="flex items-center gap-x-3">
                     <h2 class="text-lg font-medium text-gray-800 dark:text-white">Tenants numbers</h2>
 
-                    <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">030 tenants</span>
+                    <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">00{teneantsData?.length} tenants</span>
                 </div>
 
 
@@ -35,7 +31,6 @@ const Home = () => {
                                         <tr>
                                             <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                                 <div class="flex items-center gap-x-3">
-                                                    <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" />
                                                     <span>Name</span>
                                                 </div>
                                             </th>
@@ -54,14 +49,42 @@ const Home = () => {
 
                                             <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
 
-                                                <div className='flex items-center gap-5'>
-                                                    <span>09/02/23</span>
-                                                    <span>10/02/23</span>
-                                                    <span>11/02/23</span>
-                                                    <span>12/02/23</span>
-                                                    <span>13/02/23</span>
-                                                    <span>14/02/23</span>
-                                                    <span>15/02/23</span>
+                                                <div className='flex items-center gap-6'>
+                                                    <span>
+                                                        <h3>09/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
+                                                    <span>
+                                                        <h3>10/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
+                                                    <span>
+                                                        <h3>11/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
+                                                    <span>
+                                                        <h3>12/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
+                                                    <span>
+                                                        <h3>13/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
+                                                    <span>
+                                                        <h3>14/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
+                                                    <span>
+                                                        <h3>15/02/23</h3>
+                                                        <p className='available'>Availability &</p>
+                                                        <p className='available'>Mess Availability</p>
+                                                    </span>
                                                 </div>
                                             </th>
 
@@ -79,7 +102,6 @@ const Home = () => {
                                                 <tr>
                                                     <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                                         <div class="inline-flex items-center gap-x-3">
-                                                            <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" />
 
                                                             <div class="flex items-center gap-x-2">
                                                                 <img class="object-cover w-10 h-10 rounded-full" src={data.picture} alt="" />
@@ -91,11 +113,6 @@ const Home = () => {
                                                         </div>
                                                     </td>
                                                     <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                                        {/* <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
-                                                            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-
-                                                            <h2 class="text-sm font-normal text-emerald-500">Active</h2>
-                                                        </div> */}
                                                         {
                                                             data?.isActive ?
                                                                 <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60 dark:bg-gray-800">
@@ -119,60 +136,60 @@ const Home = () => {
                                                         <div className='flex items-center gap-5'>
                                                             <span>
                                                                 <div className=''>
-                                                                    <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayOne?.oneAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                                                         {data?.dayOne?.oneAtten?.slice(0, 3)}
                                                                     </td>
-                                                                    <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayOne?.oneMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                                                         {data?.dayOne?.oneMess}
                                                                     </td>
                                                                 </div>
                                                             </span>
                                                             <span>
                                                                 <div className=''>
-                                                                    <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayTwo?.twoAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                                                         {data?.dayTwo?.twoAtten?.slice(0, 3)}
                                                                     </td>
-                                                                    <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayTwo?.twoMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                                                         {data?.dayTwo?.twoMess}
                                                                     </td>
                                                                 </div>
                                                             </span>
                                                             <span>
                                                                 <div className=''>
-                                                                    <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayThree?.threeAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                                                         {data?.dayThree?.threeAtten?.slice(0, 3)}
                                                                     </td>
-                                                                    <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayThree?.threeMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                                                         {data?.dayThree?.threeMess}
                                                                     </td>
                                                                 </div>
                                                             </span>
                                                             <span>
                                                                 <div className=''>
-                                                                    <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayFour?.fourAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                                                         {data?.dayFour?.fourAtten?.slice(0, 3)}
                                                                     </td>
-                                                                    <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayFour?.fourMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                                                         {data?.dayFour?.fourMess}
                                                                     </td>
                                                                 </div>
                                                             </span>
                                                             <span>
                                                                 <div className=''>
-                                                                    <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayFive?.fiveAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                                                         {data?.dayFive?.fiveAtten?.slice(0, 3)}
                                                                     </td>
-                                                                    <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.dayFive?.fiveMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                                                         {data?.dayFive?.fiveMess}
                                                                     </td>
                                                                 </div>
                                                             </span>
                                                             <span>
                                                                 <div className=''>
-                                                                    <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.daySix?.sixAtten === 'present' ? 'text-green-500' : 'text-red-500'}`}>
                                                                         {data?.daySix?.sixAtten?.slice(0, 3)}
                                                                     </td>
-                                                                    <td class="px-2 py-1 text-xs text-gray-500 dark:text-gray-300 whitespace-nowrap border rounded">
+                                                                    <td class={`px-2 py-1 text-xs  dark:text-gray-300 whitespace-nowrap border rounded ${data?.daySix?.sixMess === 'yes' ? 'text-green-500' : 'text-red-500'}`}>
                                                                         {data?.daySix?.sixMess}
                                                                     </td>
                                                                 </div>
@@ -191,8 +208,8 @@ const Home = () => {
                                                     </td>
                                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                         <div class="flex items-center gap-x-2">
-                                                            <p class="px-3 py-1 text-xs text-blue-500 rounded-full dark:bg-gray-800 bg-blue-100/60">{data.checkin}</p>
-                                                            <p class="px-3 py-1 text-xs text-pink-500 rounded-full dark:bg-gray-800 bg-pink-100/60">{data.checkout}</p>
+                                                            <p class="px-3 py-1 text-xs text-blue-500 rounded-full dark:bg-gray-800 bg-blue-100/60">{data?.checkin ? data.checkin : "00-00-0000"}</p>
+                                                            <p class="px-3 py-1 text-xs text-pink-500 rounded-full dark:bg-gray-800 bg-pink-100/60">{data?.checkout ? data.checkout : "00-00-0000"}</p>
                                                         </div>
                                                     </td>
                                                     <td class="px-4 py-4 text-sm whitespace-nowrap">

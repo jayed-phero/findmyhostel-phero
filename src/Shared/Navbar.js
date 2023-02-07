@@ -51,10 +51,9 @@ const Navbar = () => {
                     <div className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 md:mt-0 md:p-0 md:top-0 md:relative md:bg-transparent md:w-auto md:opacity-100 md:translate-x-0 md:flex md:items-center ${isOpen ? 'translate-x-0 opacity-100' : 'opacity-0 -translate-x-full'}`}>
                         <div className="flex flex-col md:flex-row md:mx-6 md:items-center">
                             <Link onClick={() => setOpen(!isOpen)} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" to='/'>Home</Link>
-                            <Link onClick={() => setOpen(!isOpen)} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" to='/login'>Dashboard</Link>
                             <Link onClick={() => setOpen(!isOpen)} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" to='/contact'>Contact</Link>
                             <Link onClick={() => setOpen(!isOpen)} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" to='/'>About</Link>
-                            <Link to='/' class="block px-5 py-2 mt-4  text-sm text-center text-white capitalize bg-blue-600 rounded-lg lg:mt-0 hover:bg-blue-500 lg:w-auto" >
+                            <Link onClick={() => setOpen(!isOpen)} to='/dashboard' class="block px-5 py-2 mt-4  text-sm text-center text-white capitalize bg-blue-600 rounded-lg lg:mt-0 hover:bg-blue-500 lg:w-auto" >
                                 Dashboard
                             </Link>
                         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import SmallSpinner from '../../Shared/Spinner/SmallSpinner';
 import './Login.css';
 
@@ -9,17 +9,21 @@ const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
+    const location = useLocation()
+
+    const navigate = useNavigate()
+    const from = location.state?.from?.pathname || '/'
 
     const fmhToken = "1234567890"
 
-    const navigate = useNavigate()
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setLoading(true)
         if (email === "hanzalsalim@gmail.com" && password === "1234567") {
             localStorage.setItem("fmhToken", fmhToken)
-            navigate('/dashboard')
+            navigate(from, { replace: true })
             toast.success("Welcome back Hanzal")
             setLoading(false)
         } else {

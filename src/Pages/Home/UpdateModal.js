@@ -13,14 +13,14 @@ const UpdateModal = ({ infodata, setInfoData, refetch }) => {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-    
+
     const onSubmit = data => {
         setLoading(true)
         const name = data.name
         const email = data.email
         const checkin = data.checkin
         const checkout = data.checkout
-        const isActive = infodata?.isActive
+        const isActive = data.activity
         const picture = infodata?.picture
         const dayOne = {
             oneAtten: data.oneAtten,
@@ -68,25 +68,25 @@ const UpdateModal = ({ infodata, setInfoData, refetch }) => {
         }
 
         axios.put(`${process.env.REACT_APP_API_URL}/tenantsinfo/${infodata?._id}`, updatedata)
-        .then(res => {
-            console.log(res.data)
-            if(res?.data?.acknowledged === true){
-                // setInfoData(null)
-                toast.success("Info updated Successfully")
-                setLoading(false)
-                refetch()
-            }
-            else{
+            .then(res => {
+                console.log(res.data)
+                if (res?.data?.acknowledged === true) {
+                    // setInfoData(null)
+                    toast.success("Info updated Successfully")
+                    setLoading(false)
+                    refetch()
+                }
+                else {
+                    toast.error("Check your network connection")
+                    setInfoData(null)
+                }
+            })
+            .catch(err => {
+                console.log(err)
                 toast.error("Check your network connection")
+                setLoading(false)
                 setInfoData(null)
-            }
-        })
-        .catch(err => {
-            console.log(err)
-            toast.error("Check your network connection")
-            setLoading(false)
-            setInfoData(null)
-        })
+            })
 
         console.log(updatedata)
     };
@@ -114,36 +114,50 @@ const UpdateModal = ({ infodata, setInfoData, refetch }) => {
                                             <input type="name" placeholder="username" class=" w-full placeholder-gray-400/70 text-sm rounded-lg border border-gray-200 bg-white px-5 py-1.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
                                                 defaultValue={infodata?.name}
                                                 {...register("name")}
-                                          
+
                                             />
                                         </div>
                                         <div className='mt-2 md:mt-0 w-full'>
                                             <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">Email Address</label>
 
                                             <input type="email" placeholder="john@example.com" class=" block w-full placeholder-gray-400/70 text-sm rounded-lg border border-gray-200 bg-white px-5 py-1.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                            defaultValue={infodata?.email}
+                                                defaultValue={infodata?.email}
                                                 {...register("email")}
-                                               
+
                                             />
                                         </div>
                                     </div>
-                                    <div className='flex items-center gap-5 my-2 flex-col md:flex-row w-full'>
+                                    <div className='flex items-center gap-3 my-2 flex-col md:flex-row w-full'>
                                         <div className='w-full'>
                                             <label for="Birthday" class="block text-sm text-gray-500 dark:text-gray-300">Check In</label>
 
-                                            <input type="date"  class="block w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" 
-                                             defaultValue={infodata?.checkin}
-                                            {...register("checkin")}
+                                            <input type="date" class="block w-full placeholder-gray-400/70 dark:placeholder-gray-500 text-sm rounded-lg border border-gray-200 bg-white px-2 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+                                                defaultValue={infodata?.checkin}
+                                                {...register("checkin")}
+
                                             />
                                         </div>
                                         <div className='mt-2 md:mt-0 w-full'>
                                             <label for="Birthday" class="block text-sm text-gray-500 dark:text-gray-300">Check Out</label>
 
-                                            <input type="date"  class="block text-sm w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" 
-                                            defaultValue={infodata?.checkout}
-                                            {...register("checkout")}
+                                            <input type="date" class="block text-sm w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-2 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+                                                defaultValue={infodata?.checkout}
+
+                                                {...register("checkout")}
                                             />
                                         </div>
+                                        <div className='mt-2 md:mt-0 w-full'>
+                                            <label for="Birthday" class="block text-sm text-gray-500 dark:text-gray-300">Activity</label>
+
+                                            <select class="text-sm block placeholder-gray-400/70 rounded-lg border w-full border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+                                                defaultValue={infodata?.isActive}
+                                                {...register("activity")}
+                                            >
+                                                <option selected value="false">Absence</option>
+                                                <option value="true">Present</option>
+                                            </select>
+                                        </div>
+
                                     </div>
                                     <div>
                                         <div>
@@ -155,18 +169,56 @@ const UpdateModal = ({ infodata, setInfoData, refetch }) => {
                                                 </div>
                                             </div>
                                             <div className='flex items-center justify-between mb-3'>
-                                                <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">11/02/23</label>
+                                                <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">09/02/23</label>
                                                 <div className='flex itmes-center gap-5'>
                                                     <select class=" block placeholder-gray-400/70 rounded-lg border text-xs border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                     defaultValue={infodata?.dayOne?.oneAtten}
+                                                        defaultValue={infodata?.dayOne?.oneAtten}
                                                         {...register("oneAtten")}
                                                     >
                                                         <option selected value="absence">Absence</option>
                                                         <option value="present">Present</option>
                                                     </select>
                                                     <select class="block placeholder-gray-400/70 rounded-lg border text-xs border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.dayOne?.oneMess}
+                                                        defaultValue={infodata?.dayOne?.oneMess}
                                                         {...register("oneMess")}
+                                                    >
+                                                        <option value="yes">Yes</option>
+                                                        <option selected value="no">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className='flex items-center justify-between mb-3'>
+                                                <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">10/02/23</label>
+                                                <div className='flex itmes-center gap-5'>
+                                                    <select class="text-xs block placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+                                                        defaultValue={infodata?.dayTwo?.twoAtten}
+                                                        {...register("twoAtten")}
+                                                    >
+                                                        <option selected value="absence">Absence</option>
+                                                        <option value="present">Present</option>
+                                                    </select>
+                                                    <select class="block placeholder-gray-400/70 rounded-lg border text-xs border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+                                                        defaultValue={infodata?.dayTwo?.twoMess}
+                                                        {...register("twoMess")}
+                                                    >
+                                                        <option value="yes">Yes</option>
+                                                        <option selected value="no">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className='flex items-center justify-between mb-3'>
+                                                <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">11/02/23</label>
+                                                <div className='flex itmes-center gap-5'>
+                                                    <select class=" text-xs block placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+                                                        defaultValue={infodata?.dayThree?.threeAtten}
+                                                        {...register("threeAtten")}
+                                                    >
+                                                        <option selected value="absence">Absence</option>
+                                                        <option value="present">Present</option>
+                                                    </select>
+                                                    <select class="block placeholder-gray-400/70 rounded-lg border text-xs border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+                                                        defaultValue={infodata?.dayThree?.threeMess}
+                                                        {...register("threeMess")}
                                                     >
                                                         <option value="yes">Yes</option>
                                                         <option selected value="no">No</option>
@@ -177,15 +229,15 @@ const UpdateModal = ({ infodata, setInfoData, refetch }) => {
                                                 <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">12/02/23</label>
                                                 <div className='flex itmes-center gap-5'>
                                                     <select class="text-xs block placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.dayTwo?.twoAtten}
-                                                        {...register("twoAtten")}
+                                                        defaultValue={infodata?.dayFour?.fourAtten}
+                                                        {...register("fourAtten")}
                                                     >
                                                         <option selected value="absence">Absence</option>
                                                         <option value="present">Present</option>
                                                     </select>
                                                     <select class="block placeholder-gray-400/70 rounded-lg border text-xs border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.dayTwo?.twoMess}
-                                                        {...register("twoMess")}
+                                                        defaultValue={infodata?.dayFour?.fourMess}
+                                                        {...register("fourMess")}
                                                     >
                                                         <option value="yes">Yes</option>
                                                         <option selected value="no">No</option>
@@ -195,16 +247,16 @@ const UpdateModal = ({ infodata, setInfoData, refetch }) => {
                                             <div className='flex items-center justify-between mb-3'>
                                                 <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">13/02/23</label>
                                                 <div className='flex itmes-center gap-5'>
-                                                    <select class=" text-xs block placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.dayThree?.threeAtten}
-                                                        {...register("threeAtten")}
+                                                    <select class="text-xs block placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+                                                        defaultValue={infodata?.dayFive?.fiveAtten}
+                                                        {...register("fiveAtten")}
                                                     >
                                                         <option selected value="absence">Absence</option>
                                                         <option value="present">Present</option>
                                                     </select>
                                                     <select class="block placeholder-gray-400/70 rounded-lg border text-xs border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.dayThree?.threeMess}
-                                                        {...register("threeMess")}
+                                                        defaultValue={infodata?.dayFive?.fiveMess}
+                                                        {...register("fiveMess")}
                                                     >
                                                         <option value="yes">Yes</option>
                                                         <option selected value="no">No</option>
@@ -215,15 +267,15 @@ const UpdateModal = ({ infodata, setInfoData, refetch }) => {
                                                 <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">14/02/23</label>
                                                 <div className='flex itmes-center gap-5'>
                                                     <select class="text-xs block placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.dayFour?.fourAtten}
-                                                        {...register("fourAtten")}
+                                                        defaultValue={infodata?.daySix?.sixAtten}
+                                                        {...register("sixAtten")}
                                                     >
                                                         <option selected value="absence">Absence</option>
                                                         <option value="present">Present</option>
                                                     </select>
-                                                    <select class="block placeholder-gray-400/70 rounded-lg border text-xs border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.dayFour?.fourMess}
-                                                        {...register("fourMess")}
+                                                    <select class="block text-xs placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+                                                        defaultValue={infodata?.daySix?.sixMess}
+                                                        {...register("sixMess")}
                                                     >
                                                         <option value="yes">Yes</option>
                                                         <option selected value="no">No</option>
@@ -233,53 +285,15 @@ const UpdateModal = ({ infodata, setInfoData, refetch }) => {
                                             <div className='flex items-center justify-between mb-3'>
                                                 <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">15/02/23</label>
                                                 <div className='flex itmes-center gap-5'>
-                                                    <select class="text-xs block placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.dayFive?.fiveAtten}
-                                                        {...register("fiveAtten")}
-                                                    >
-                                                        <option selected value="absence">Absence</option>
-                                                        <option value="present">Present</option>
-                                                    </select>
-                                                    <select class="block placeholder-gray-400/70 rounded-lg border text-xs border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.dayFive?.fiveMess}
-                                                        {...register("fiveMess")}
-                                                    >
-                                                        <option value="yes">Yes</option>
-                                                        <option selected value="no">No</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className='flex items-center justify-between mb-3'>
-                                                <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">16/02/23</label>
-                                                <div className='flex itmes-center gap-5'>
-                                                    <select class="text-xs block placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.daySix?.sixAtten}
-                                                        {...register("sixAtten")}
-                                                    >
-                                                        <option selected value="absence">Absence</option>
-                                                        <option value="present">Present</option>
-                                                    </select>
-                                                    <select class="block text-xs placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.daySix?.sixMess}
-                                                        {...register("sixMess")}
-                                                    >
-                                                        <option value="yes">Yes</option>
-                                                        <option selected value="no">No</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className='flex items-center justify-between mb-3'>
-                                                <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">17/02/23</label>
-                                                <div className='flex itmes-center gap-5'>
                                                     <select class=" text-xs block placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.daySeven?.sevenAtten}
+                                                        defaultValue={infodata?.daySeven?.sevenAtten}
                                                         {...register("sevenAtten")}
                                                     >
                                                         <option selected value="absence">Absence</option>
                                                         <option value="present">Present</option>
                                                     </select>
                                                     <select class="block placeholder-gray-400/70 rounded-lg border text-xs border-gray-200 bg-white px-5 py-1 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                                                    defaultValue={infodata?.daySeven?.sevenMess}
+                                                        defaultValue={infodata?.daySeven?.sevenMess}
                                                         {...register("sevenMess")}
                                                     >
                                                         <option value="yes">Yes</option>
@@ -304,9 +318,9 @@ const UpdateModal = ({ infodata, setInfoData, refetch }) => {
                                     class="inline-block w-44 h-9 px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
                                     {
                                         loading ?
-                                        <SmallSpinner/>
-                                        :
-                                        "Save changes"
+                                            <SmallSpinner />
+                                            :
+                                            "Save changes"
                                     }
                                 </button>
                             </div>
